@@ -20,7 +20,6 @@ const upload = multer({
 })
 
 
-
 router.post('/reg', regco.reg)
 router.post('/logincheck', regco.logincheck)
 router.post('/productadd', upload.single('img'), product.add)
@@ -29,9 +28,10 @@ router.get('/singleupdate/:id', product.singleupdate)
 router.put('/productupdate/:id', upload.single('img'), product.productupdate)
 router.delete('/delete/:id', product.delete)
 router.post('/itemadd', upload.single('img'), item.add)
-// router.get('/allitem',item.fetch)
 
 router.post('/itemfetch', item.fetchitem)
 router.post('/cartproducts', item.cart)
+router.post('/billing', item.billing)
+router.get('/stockfetch',product.stockfetch)
 
 module.exports = router

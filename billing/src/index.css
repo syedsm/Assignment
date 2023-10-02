@@ -7,6 +7,7 @@
 #login h2 {
   text-align: center;
 }
+
 /* 
 #header .col-md-4 {
   float: right;
@@ -18,14 +19,14 @@
 
 #header {
   background-color: rgb(137, 226, 217);
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 15px 0px;
+
 }
 
 #footer {
   background-color: rgb(137, 226, 217);
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 15px 0px;
   text-align: center;
+  color: white;
   margin-top: 20px;
 }

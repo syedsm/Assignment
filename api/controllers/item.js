@@ -4,10 +4,11 @@ const cosmetic = require('../models/cosmetic')
 const electricappliance = require('../models/electricappliance')
 const grocerie = require('../models/Grocerie')
 const toys = require('../models/toys')
+const { model } = require('mongoose')
 
 
 exports.add = (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     // console.log(req.file.filename)
     const { selectedCat, name, desc, qty, price, exp } = req.body;
     const filename = req.file.filename
@@ -35,7 +36,7 @@ exports.add = (req, res) => {
             default:
                 console.log('Invalid category');
         }
-        console.log(record)
+        // console.log(record)
         record.save()
         res.json({
             status: 201,
@@ -89,24 +90,28 @@ exports.fetchitem = async (req, res) => {
             message: error.message
         })
     }
-   
+
 }
 
 exports.cart = async (req, res) => {
-    
+    // console.log(req.body)
     const { ids } = req.body;
+    // console.log(ids)
 
     try {
         const models = { grocerie, cosmetic, electricappliance, toys, Decor, };
 
         // Create an object to store the found data for each model
-        const Data = {};
+        const Data = [];
 
         // Iterate over each model and find data based on the array of IDs
         for (let modelName in models) {
-            Data[modelName] = await models[modelName].find({ _id: { $in: ids } });
+            // Data[modelName] = await models[modelName].find({ _id: { $in: ids } });
+            const modelData = await models[modelName].find({ _id: { $in: ids } });
+            Data.push(...modelData);
+
         }
-        console.log(Data)
+        // console.log(Data)
         res.json({
             status: 200,
             apidata: Data,
@@ -121,57 +126,34 @@ exports.cart = async (req, res) => {
 
 }
 
-// exports.add=(req,res)=>{
-//     // console.log(req.body)
-//     // console.log(req.file.filename)
+exports.billing = async (req, res) => {
+    const idsString = req.body.productIdsArray;
+    // const ids = req.body
+    // console.log(idsString)
+    
+    try {
+        const models = { grocerie, cosmetic, electricappliance, toys, Decor };
 
-//     const filename=req.file.filename
-//     const {name,desc,qty,price}=req.body
-//     try{
+        //  found and store each model data in this blank array and push modelData
+        const Data = [];
+        const modelIds = idsString.split(',');// for divide each ids sepratelty for find each models
+        for (let modelName in models) { // Iterate over each model and find data based on the array of IDs
 
-//         const record=new Item({name:name,desc:desc,qty:qty,price:price,img:filename})
-//         // console.log(record)
-//         record.save()
-//         res.json({
-//             status:201,
-//             apidata:record,
-//             message:"Item Add Successfully"
-//         })
-//     }catch(error){
-//         res.json({status:400,message:error.message})
-//     }
-// }
+            const modelData = await models[modelName].find({ _id: { $in: modelIds } });
+            // Data[modelName] = modelData;
+            Data.push(...modelData)
+        }
 
-// exports.fetch = async (req, res) => {
-//     try {
-//         const record = await Item.find()
-//         res.json({
-//             status: 200,
-//             apiData: record
-//         })
-//     } catch (error) {
-//         res.json({
-//             status: 500,
-//             message: error.message
-//         })
-//     }
-// }
-// exports.cart = async (req, res) => {
-
-//     try {
-//         const { ids } = req.body
-//         const record = await Item.find({ _id: { $in: ids } })
-//         // console.log(record)
-//         res.json({
-//             status: 200,
-//             apiData: record,
-//             message: "Suucessfully Delivered"
-//         })
-//     } catch (error) {
-//         res.json({
-//             status: 400,
-//             message: error.message
-//         })
-//     }
-// }
-
+        // console.log(Data);
+        res.json({
+            status: 200,
+            apidata: Data,
+            message: 'Successfully fetched',
+        });
+    } catch (error) {
+        res.json({
+            status: 400,
+            message: error.message,
+        });
+    }
+}

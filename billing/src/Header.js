@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Contextapi } from "./Contextapi";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -28,22 +28,19 @@ function Header() {
                 <div className="col-md-10">
                   <ul className="nav justify-content-end">
                     <li className="nav-item me-2">
-                      <button className="btn btn-success ">Welcome {loginname}</button>
+                      <button className="btn btn-info ">Welcome {loginname}</button>
                     </li>
                     <li className="nav-item me-2">
-                      <button className="btn btn-success">Dashboard</button>
+                      <Link to={'/stockmanagement'}><button className="btn btn-info">Dashboard</button></Link>
                     </li>
                     <li className="nav-item me-2">
-                      <button className="btn btn-success">Profile</button>
+                      <button className="btn btn-info">Profile</button>
                     </li>
-                    <li className="nav-item me-2">
-                      {/* <button className="btn btn-dark">Profile</button>
-                       */}
-                     <Link to='/cart'><button className="btn btn-success me-2 "><i class="bi bi-cart-plus"> {!cart.totalItems ? 0 : cart.totalItems}</i></button></Link>
+                    
+                     <Link to='/cart'><button className="btn btn-info me-2 "><i class="bi bi-cart-plus"> {!cart.totalItems ? 0 : cart.totalItems}</i></button></Link>
 
-                    </li>
                     <li className="nav-item me-2">
-                      <button className="btn btn-success  " onClick={(e) => { handlelogout(e) }}>
+                      <button className="btn btn-info  " onClick={(e) => { handlelogout(e) }}>
                         <i className="bi bi-box-arrow-right"></i> Logout
                       </button>
                     </li>

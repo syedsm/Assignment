@@ -221,18 +221,21 @@ function Productadd() {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
+                        
                         <label>Electric Aplliance itemDescription:</label>
                         <textarea
                         className="form-control"
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
                         ></textarea>
+
                         <label>Electric Aplliance Image:</label>
                         <input
                         className="form-control"
                             type="file"
                             onChange={(e) => setImg(e.target.files[0])}
                         />
+
                         <label>Electric Aplliance price:</label>
                         <input
                         className="form-control"
@@ -240,7 +243,9 @@ function Productadd() {
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />
-                        <input
+
+                        <label>Electric Aplliance Quantity:</label>
+                        <input 
                         className="form-control"
                             type="number"
                             value={qty}
@@ -260,8 +265,8 @@ function Productadd() {
                 <div className="row">
                     <Left />
                     <div className="col-md-9">
+                        <h3 className="text-center">{message}</h3>    
                         <form onSubmit={(e)=>{handleForm(e)}}>
-                            {message}
                             <label>Select Category:</label>
                             <select className="form-select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
                                 <option value="grocerie">Groceries</option>
